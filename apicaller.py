@@ -1,27 +1,31 @@
 import requests
 
-def make_api_request(url, phone, password):
-    payload = {"phone": phone,"password": password}
+def get_username(url, phone):
+    payload = {"phone": phone}
     headers = {'Content-Type': 'application/json'}
     try:
         response = requests.post(url, json=payload, headers=headers)
         if response.status_code == 200:
-            return response.json()
+            return True, response.json()
         else:
-            return {
+            return False, {
                 "error": f"Request failed with status code {response.status_code}",
                 "details": response.text}
     except requests.exceptions.RequestException as e:
-        return {"error": "Request failed",
+        return False, {"error": "Request failed",
                 "details": str(e)}
-
-def register_user(url,payload):
+    
+def log_in(url, username, password):
+    payload = {"username": username,"password": password}
     headers = {'Content-Type': 'application/json'}
     try:
         response = requests.post(url, json=payload, headers=headers)
         if response.status_code == 200:
-            return response.json()
+            return True,response.json()
         else:
-            return {"error": f"Request failed with status code {response.status_code}","details": response.text}
+            return False, {
+                "error": f"Request failed with status code {response.status_code}",
+                "details": response.text}
     except requests.exceptions.RequestException as e:
-        return {"error": "Request failed","details": str(e)}
+        return False, {"error": "Request failed",
+                "details": str(e)}
