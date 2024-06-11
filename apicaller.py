@@ -8,12 +8,9 @@ def get_username(url, phone):
         if response.status_code == 200:
             return True, response.json()
         else:
-            return False, {
-                "error": f"Request failed with status code {response.status_code}",
-                "details": response.text}
+            return False, { "details": response.text,"error": f"Request failed with status code {response.status_code}"}
     except requests.exceptions.RequestException as e:
-        return False, {"error": "Request failed",
-                "details": str(e)}
+        return False, {"error": "Request failed","details": str(e)}
     
 def log_in(url, username, password):
     payload = {"username": username,"password": password}
@@ -23,9 +20,6 @@ def log_in(url, username, password):
         if response.status_code == 200:
             return True,response.json()
         else:
-            return False, {
-                "error": f"Request failed with status code {response.status_code}",
-                "details": response.text}
+            return False, {  "details": response.text,"error": f"Request failed with status code {response.status_code}"}
     except requests.exceptions.RequestException as e:
-        return False, {"error": "Request failed",
-                "details": str(e)}
+        return False, {"error": "Request failed", "details": str(e)}

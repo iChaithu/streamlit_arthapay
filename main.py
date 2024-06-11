@@ -23,8 +23,7 @@ else:
                         st.query_params["token"] = do['access_token']
                         st.success("Logged in successfully!")
                         st.markdown(f"<meta http-equiv='refresh' content='1;URL=/?access_token={do['access_token']}'>", unsafe_allow_html=True)
-                else:
-                    st.write(do)
+                else:st.write(do)
         else:
             phone_number = st.text_input("Enter your phone number")
             if st.button("Submit"):
@@ -34,5 +33,4 @@ else:
                     st.query_params["username"] = username['message']
                     st.success(f"Username found: {username}")
                     st.markdown(f"<meta http-equiv='refresh' content='1;URL=/?username={username['message']}'>", unsafe_allow_html=True)
-                else:
-                    st.error("Phone number not found")
+                else:st.error("Phone number not found")
