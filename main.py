@@ -3,6 +3,7 @@ from apicaller import *
 from app import home
 
 st.set_page_config(page_title="ArthaPay", page_icon=":memo:", layout="wide") 
+st.set_option("server_address", "0.0.0.0")
 
 if st.query_params.get("access_token"):
     home()
