@@ -1,9 +1,9 @@
 import streamlit as st
 from apicaller import *
 from app import home
+from config import *
 
 st.set_page_config(page_title="ArthaPay", page_icon=":memo:", layout="wide") 
-st.set_option("server_address", "0.0.0.0")
 
 if st.query_params.get("access_token"):
     home()
@@ -18,7 +18,7 @@ else:
             st.write(f"Username: {st.query_params.get('username')}")
             password = st.text_input("Enter your password", type="password")
             if st.button("Login"):
-                status, do = log_in("http://[2406:b400:d4:f930:cbc9:bcf7:5b44:c1d3]:5000/login",st.query_params.get("username"), password )
+                status, do = log_in(f"{base_url}:{port}/login",st.query_params.get("username"), password )
                 if status:  
                     if do['access_token']:
                         st.query_params["token"] = do['access_token']
@@ -28,7 +28,7 @@ else:
         else:
             phone_number = st.text_input("Enter your phone number")
             if st.button("Submit"):
-                status, username = get_username("http://[2406:b400:d4:f930:cbc9:bcf7:5b44:c1d3]:5000/get_user", phone_number)
+                status, username = get_username(f"{base_url}:{port}/get_user", phone_number)
                 if status:
                     st.write(username)
                     st.query_params["username"] = username['message']
