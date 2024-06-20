@@ -18,7 +18,7 @@ else:
             st.write(f"Username: {st.query_params.get('username')}")
             password = st.text_input("Enter your password", type="password")
             if st.button("Login"):
-                status, do = log_in(f"{base_url}:{port}/login",st.query_params.get("username"), password )
+                status, do = log_in(f"{base_url}/login",st.query_params.get("username"), password )
                 if status:  
                     if do['access_token']:
                         st.query_params["token"] = do['access_token']
@@ -28,7 +28,7 @@ else:
         else:
             phone_number = st.text_input("Enter your phone number")
             if st.button("Submit"):
-                status, username = get_username(f"{base_url}:{port}/get_user", phone_number)
+                status, username = get_username(f"{base_url}/get_user", phone_number)
                 if status:
                     st.write(username)
                     st.query_params["username"] = username['message']
